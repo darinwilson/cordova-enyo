@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Cordova-Enyo Bootplate App</title>
+		<link rel="shortcut icon" href="assets/favicon.ico"/>
+
+		<!-- -->
+		<meta http-equiv="Content-Type" content="text/html; charset=utf8"/>
+		<meta name="apple-mobile-web-app-capable" content="yes"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+		<!-- css -->
+		<link href="build/enyo.css" rel="stylesheet"/>
+		<link href="build/app.css" rel="stylesheet"/>
+
+		<!-- js -->
+		<script src="cordova.js"></script>
+		<script src="build/enyo.js"></script>
+		<script src="build/app.js"></script>
+
+	</head>
+	<body class="enyo-unselectable">
+		<script>
+    
+      // For most Enyo apps, "new App().renderInto(document.body)" would be all that's 
+      // needed here, but I've added some (trivial) extra code so we can check
+      // for the deviceready event, which is fired by Cordova when the 
+      // Javascript-to-native bridge has been successfully initialized. You won't
+      // be able to access any native functionality until this happens.
+
+      // App is defined in source/App.js - we're just going to disable the "Tap Me"
+      // button initially, then enable it when deviceready is fired
+      var app = new App();
+      app.$.button.setDisabled(true);
+      app.renderInto(document.body);
+      
+      // this will listen for deviceready even and enable the "Tap Me" button when
+      // the event is fired
+      enyo.kind({
+        name: "CordovaListener",
+        components: [
+            {kind: "Signals", ondeviceready: "deviceReady"}
+        ],
+        deviceReady: function() {
+          // displays a native alert box
+          navigator.notification.alert("Device is ready", null, "Cordova-Enyo", "OK");
+          app.$.button.setDisabled(false);
+        }
+      });
+      new CordovaListener();
+      
+		</script>
+	</body>
+</html>

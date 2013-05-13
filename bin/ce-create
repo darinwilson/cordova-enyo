@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+CEHOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+
+####################################################
+## Step 1 : Create the project with "cordova create"
+
+# collect the command line args - we'll pass these directly to "cordova create"
+PROJECT_DIR=$1
+ID=$2
+NAME=$3
+
+# we need at least the project dir - cordova can fake the rest if they're not specified
+if [ -z "$PROJECT_DIR" ]
+then
+  echo "usage: ce-create <directory> [<id> [<name>]]"
+  echo ""
+  exit -1
+fi
+
+# execute
+echo "Creating the Cordova project..."
+cordova create $PROJECT_DIR $ID $NAME
+
+# convert to absolute path
+PROJECT_DIR=`cd $PROJECT_DIR; pwd`
+
+
+###############################################################
+## Step 2 : Remove boilerplate www files and add Enyo bootplate
+
+# keep /res and config.xml - dump everything else
+for file in $PROJECT_DIR/www/*
+do
+  if [[ $file != "$PROJECT_DIR/www/res" ]] && [[ $file != "$PROJECT_DIR/www/config.xml" ]]
+  then
+    rm -rf $file
+  fi 
+done
+
+# setup Enyo in its own subdirectory
+echo "Setting up Enyo..."
+cd $PROJECT_DIR
+git clone https://github.com/enyojs/bootplate.git enyo
+cd enyo
+git submodule update --init
+
+
+###########################################################
+## Step 3 : Add our custom hooks to run Enyo build commands
+
+echo "Adding custom hooks..."
+
+# replace the default bootplate index.html with a Cordova-enabled version
+cp $CEHOME/assets/index.html $PROJECT_DIR/enyo/index.html
+
+# add a pre-build hook to compile the Enyo app and move the assets into place
+cp $CEHOME/assets/copy_enyo_assets.sh $PROJECT_DIR/.cordova/hooks/before_prepare
+
+
+
