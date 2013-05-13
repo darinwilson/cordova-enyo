@@ -19,7 +19,7 @@ cordova-enyo has been tested on Mac OS X, using the iOS and Android SDKs.
 
 # Quick Start
 
-    git clone https://github.com/linkmediainc/cordova-enyo
+    git clone git@github.com:linkmediainc/cordova-enyo.git
     cd cordova-enyo
     ./bin/ce-create ./MyApp com.mydomain.myapp MyApp
     cd MyApp  
@@ -27,7 +27,7 @@ cordova-enyo has been tested on Mac OS X, using the iOS and Android SDKs.
     cordova build
     cordova emulate
     
-**NOTE**: To continue developing, edit the CSS and JavaScript files in the `MyApp/enyo/source` directory, rather than the `www` directory - this follows the conventions for Enyo development and is different than most Cordova apps. For more details, see "Developing Your App" below.
+**NOTE**: To continue developing, edit the CSS and JavaScript files in the `MyApp/enyo/source` directory, rather than the `www` directory - this follows the conventions for Enyo development and is different than most Cordova apps. For more details, see ["Developing Your App"](#developing-your-app) below.
 
 
 # Details
