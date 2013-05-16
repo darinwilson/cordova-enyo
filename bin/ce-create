@@ -54,6 +54,9 @@ echo "Adding custom hooks..."
 # replace the default bootplate index.html with a Cordova-enabled version
 cp $CEHOME/assets/index.html $PROJECT_DIR/enyo/index.html
 
+# add a browser-friendly version of the index file for quick tweaking/debugging
+cp $CEHOME/assets/index-browser.html $PROJECT_DIR/enyo/index-browser.html
+
 # add a pre-build hook to compile the Enyo app and move the assets into place
 cp $CEHOME/assets/copy_enyo_assets.sh $PROJECT_DIR/.cordova/hooks/before_prepare
 

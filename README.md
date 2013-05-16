@@ -52,9 +52,20 @@ Once `ce-create` has been successfully run, you will use the standard `cordova-c
 
 Enyo's bootplate template is set up to minify all of the JavaScript assets before deployment - this is a useful step as Enyo is a fairly large project, and the minification step keeps the package size small and speeds up the app's startup time. `cordova-enyo` takes advantages of hooks in the `cordova-cli` build commands, so that Enyo's build commands are run whenever `cordova build` is invoked. The output of the Enyo build process is then transferred to the `www` directory where it's picked up by Cordova's build command and transferred to the platform-specific build directory.
 
+### Running In The Browser
+
+As a general rule, Cordova apps that rely on native APIs can't actually be run in the browser; but, if you're creating a simple app that doesn't use the native APIs, or if you're in the mockup phase and just want to do some quick tweaking/debugging, using a browser can be very handy: refreshing the page is a lot faster than relaunching the emulators, and you have access to all of browser-based developer tools.
+
+To run your app in the browser, just open `enyo/index-browser.html`. This is a slightly altered version of the standard `index.html` with some key differences:
+
+* the native Cordova APIs are not available - any code you have that relies on these will not run
+* the page explicitly calls `deviceReady` on the app object after it's been created 
+* the page uses the non-minified versions of Enyo and your own app code - this can help with debugging
+
+
 
 # Resources
 
 * [Enyo Home](http://enyojs.com) - includes documentation and tutorials
-* [Apache Cordova Home]
+* [Apache Cordova Home](http://cordova.apache.org/)
 * [How PhoneGap Relates To Cordova](http://phonegap.com/2012/03/19/phonegap-cordova-and-what%E2%80%99s-in-a-name/) - a guide for the confused 
